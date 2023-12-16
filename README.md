@@ -5,7 +5,7 @@ MinimalEasing is a UniTask friendly minimal easing library.
 
 ![record](https://github.com/notargs/MinimalEasing/assets/3889597/3552c9a9-a314-4c7f-8427-f61a3438fa61)
 
-```
+```cs
 public class MinimalEasingSample : MonoBehaviour
 {
     private void Start()
