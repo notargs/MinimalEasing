@@ -1,0 +1,10 @@
+{
+  "name": "com.notargs.minimal-easing",
+  "displayName": "MinimalEasing",
+  "author": {
+    "name": "notargs"
+  },
+  "version": "1.7.4",
+  "unity": "2023.2",
+  "dependencies": {}
+}
