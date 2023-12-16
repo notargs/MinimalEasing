@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEngine;
+
+#if MINIMAL_EASING_USE_UNITASK
+using Cysharp.Threading.Tasks;
+#endif
 
 namespace MinimalEasing
 {
@@ -33,6 +36,7 @@ namespace MinimalEasing
         public static float InExpo(float x) => math.pow(2, 10 * x - 10);
         public static float OutExpo(float x) => 1 - math.pow(2, -10 * x);
 
+        #if MINIMAL_EASING_USE_UNITASK
         public static async IAsyncEnumerable<float> LinearAsyncEnumerable(float time, PlayerLoopTiming playerLoopTiming = PlayerLoopTiming.Update, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             for (var t = 0.0f; t < time; t += Time.deltaTime)
@@ -42,5 +46,6 @@ namespace MinimalEasing
             }
             yield return 1;
         }
+        #endif
     }
 }
