@@ -1,5 +1,5 @@
 # MinimalEasing
-MinimalEasing is a [UniTask](https://github.com/Cysharp/UniTask) friendly minimal easing library.
+MinimalEasing is a [UniTask](https://github.com/Cysharp/UniTask) friendly minimal easing library for Unity.
 
 ## Example
 
