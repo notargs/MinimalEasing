@@ -1,7 +1,7 @@
 # MinimalEasing
 MinimalEasing is a UniTask friendly minimal easing library.
 
-# Example
+## Example
 
 ![record](https://github.com/notargs/MinimalEasing/assets/3889597/3552c9a9-a314-4c7f-8427-f61a3438fa61)
 
@@ -41,10 +41,10 @@ public class MinimalEasingSample : MonoBehaviour
 }
 ```
 
-# UPM Package
+## UPM Package
 MinimalEasing supports UPM.
 Write this snippets to `manifest.json`
 `"com.notargs.minimal-easing": "git@github.com:notargs/MinimalEasing.git?path=/Packages/MinimalEasing#0.0.2"`
 
-# License
+## License
 MIT License
