@@ -5,37 +5,37 @@ using UnityEngine;
 
 namespace Sample.Runtime
 {
-public class MinimalEasingSample : MonoBehaviour
-{
-    private void Start()
+    public class MinimalEasingSample : MonoBehaviour
     {
-        RunAsync(destroyCancellationToken).Forget();
-    }
-
-    private async UniTaskVoid RunAsync(CancellationToken cancellationToken)
-    {
-        while (!cancellationToken.IsCancellationRequested)
+        private void Start()
         {
-            await foreach (var t in Easing.LinearAsyncEnumerable(0.5f, cancellationToken: cancellationToken))
-            {
-                transform.position = Easing.InOutQuad(t) * Vector3.right;
-            }
+            RunAsync(destroyCancellationToken).Forget();
+        }
 
-            await foreach (var t in Easing.LinearAsyncEnumerable(0.5f, cancellationToken: cancellationToken))
+        private async UniTaskVoid RunAsync(CancellationToken cancellationToken)
+        {
+            while (!cancellationToken.IsCancellationRequested)
             {
-                transform.position = Vector3.right + Easing.InSine(t) * Vector3.up;
-            }
-        
-            await foreach (var t in Easing.LinearAsyncEnumerable(0.5f, cancellationToken: cancellationToken))
-            {
-                transform.position = Vector3.right + Vector3.up + Easing.OutExpo(t) * Vector3.left;
-            }
-            
-            await foreach (var t in Easing.LinearAsyncEnumerable(0.5f, cancellationToken: cancellationToken))
-            {
-                transform.position = Vector3.up + Easing.InQuint(t) * Vector3.down;
+                await foreach (var t in Easing.LinearAsyncEnumerable(0.5f, cancellationToken: cancellationToken))
+                {
+                    transform.position = Easing.InOutQuad(t) * Vector3.right;
+                }
+
+                await foreach (var t in Easing.LinearAsyncEnumerable(0.5f, cancellationToken: cancellationToken))
+                {
+                    transform.position = Vector3.right + Easing.InSine(t) * Vector3.up;
+                }
+
+                await foreach (var t in Easing.LinearAsyncEnumerable(0.5f, cancellationToken: cancellationToken))
+                {
+                    transform.position = Vector3.right + Vector3.up + Easing.OutExpo(t) * Vector3.left;
+                }
+
+                await foreach (var t in Easing.LinearAsyncEnumerable(0.5f, cancellationToken: cancellationToken))
+                {
+                    transform.position = Vector3.up + Easing.InQuint(t) * Vector3.down;
+                }
             }
         }
     }
-}
 }

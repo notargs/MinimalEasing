@@ -36,16 +36,61 @@ namespace MinimalEasing
         public static float InExpo(float x) => math.pow(2, 10 * x - 10);
         public static float OutExpo(float x) => 1 - math.pow(2, -10 * x);
 
-        #if MINIMAL_EASING_USE_UNITASK
-        public static async IAsyncEnumerable<float> LinearAsyncEnumerable(float time, PlayerLoopTiming playerLoopTiming = PlayerLoopTiming.Update, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        public static float2 ExponentialDecay(float2 a, float2 b, float decay, float dt) =>
+            b + (a - b) * math.exp(-decay * dt);
+        
+        public static float3 ExponentialDecay(float3 a, float3 b, float decay, float dt) =>
+            b + (a - b) * math.exp(-decay * dt);
+        
+        public static quaternion ExponentialDecay(quaternion a, quaternion b, float decay, float dt)
+        {
+            var factor = math.exp(-decay * dt);
+            return math.slerp(b, a, factor);
+        }
+
+        public static float ExponentialDecay(float a, float b, float decay, float dt) =>
+            b + (a - b) * math.exp(-decay * dt);
+
+        public static Color ExponentialDecay(Color current, Color target, float decay, float dt)
+        {
+            var factor = math.exp(-decay * dt);
+            return new Color(
+                target.r + (current.r - target.r) * factor,
+                target.g + (current.g - target.g) * factor,
+                target.b + (current.b - target.b) * factor,
+                target.a + (current.a - target.a) * factor
+            );
+        }
+        
+        public static float ExponentialDecayAngle(float current, float target, float decay, float dt)
+        {
+            var delta = DeltaAngle(current, target);
+            return target + delta * math.exp(-decay * dt);
+        }
+        
+        private static float DeltaAngle(float a, float b)
+        {
+            var delta = (b - a) % math.TAU;
+            if (delta > math.PI)
+                delta -= math.TAU;
+            return delta;
+        }
+        
+        private static float Repeat(float t, float length) => math.saturate(t - math.floor(t / length)) * length;
+
+#if MINIMAL_EASING_USE_UNITASK
+        public static async IAsyncEnumerable<float> LinearAsyncEnumerable(float time,
+            PlayerLoopTiming playerLoopTiming = PlayerLoopTiming.Update,
+            [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             for (var t = 0.0f; t < time; t += Time.deltaTime)
             {
                 yield return t / time;
                 await UniTask.Yield(cancellationToken);
             }
+
             yield return 1;
         }
-        #endif
+#endif
     }
 }
